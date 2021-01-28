@@ -1,5 +1,5 @@
-import REact, { useState, useEffect, useCallback } from 'react';
-import useDebounce from '../useDebounce';
+import React, { useState, useEffect, useCallback } from 'react';
+import useDebounce from '../hooks/useDebounce';
 import './SearchBar.scss';
 
 
@@ -17,11 +17,9 @@ function SearchBar(props) {
     <section className="search">
       <form className="search__form" onSubmit={event => event.preventDefault()}>
         <input
-          className="radius"
-          spellCheck="false"
-          placeholder="Search Artists"
-          name="search"
-          type="text"
+          placeholder="Search Movies to Nominate"
+          name="nom-search"
+          type="search"
           value={value}
           onChange={event => setValue(event.target.value)}
         />
