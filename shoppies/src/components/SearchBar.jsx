@@ -1,21 +1,33 @@
+import REact, { useState, useEffect, useCallback } from 'react';
+import useDebounce from '../useDebounce';
 import './SearchBar.scss';
 
 
-function SearchBar ({ handleSearcBar }) {
+function SearchBar(props) {
+  const [value, setValue] = useState("");
+  const term = useDebounce(value, 400);
+
+  const onSearch = useCallback(props.onSearch, [term]);
+
+  useEffect(() => {
+    onSearch(term);
+  }, [term, onSearch]);
+
   return (
-    <div className="flex-row2">
-    <div className="flex-row">
-      <div className="search-icon">
-      </div>
-      <input
-        className="bar"
-        placeholder="Enter Movie Title"
-        maxlength="50"
-        onChange={(event) => handleSearchBar(event.target.value)}
-      />
-    </div>
-  </div>
-);
+    <section className="search">
+      <form className="search__form" onSubmit={event => event.preventDefault()}>
+        <input
+          className="radius"
+          spellCheck="false"
+          placeholder="Search Artists"
+          name="search"
+          type="text"
+          value={value}
+          onChange={event => setValue(event.target.value)}
+        />
+      </form>
+    </section>
+  );
 }
 
 export default SearchBar;
